@@ -1,49 +1,46 @@
-const { join } = require("path");
+import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import reactHooks from 'eslint-plugin-react-hooks';
+import nextPlugin from '@next/eslint-plugin-next';
 
-/** @type {import('eslint').Linter.FlatConfig[]} */
-module.exports = [
+export default tseslint.config(
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
   {
-    ignores: [
-      ".next/**",
-      "node_modules/**",
-      "out/**",
-      "dist/**",
-      "build/**",
-    ],
+    ignores: ['.next/**', 'node_modules/**', 'out/**', 'dist/**', 'build/**', '**/*.test.ts', '**/*.test.tsx', '**/*.spec.ts', '**/*.spec.tsx'],
   },
-  require("@eslint/js").configs.recommended,
   {
-    files: ["**/*.ts", "**/*.tsx"],
+    files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
-      parser: require("@typescript-eslint/parser"),
-      globals: {
-        window: "readonly",
-        document: "readonly",
-        localStorage: "readonly",
-        setTimeout: "readonly",
-        clearTimeout: "readonly",
-        navigator: "readonly",
-        console: "readonly",
-      },
       parserOptions: {
         ecmaVersion: 2021,
-        sourceType: "module",
-        project: join(__dirname, "tsconfig.json"),
+        sourceType: 'module',
+        project: './tsconfig.json',
+      },
+      globals: {
+        window: 'readonly',
+        document: 'readonly',
+        localStorage: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        navigator: 'readonly',
+        console: 'readonly',
       },
     },
     plugins: {
-      "@typescript-eslint": require("@typescript-eslint/eslint-plugin"),
-      "react-hooks": require("eslint-plugin-react-hooks"),
+      'react-hooks': reactHooks,
+      '@next/next': nextPlugin,
     },
     rules: {
-      "no-console": ["warn", { allow: ["warn", "error"] }],
-      "no-debugger": "error",
-      "@typescript-eslint/no-unused-vars": "off",
-      "no-unused-vars": "off",
-      "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/no-non-null-assertion": "off",
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-debugger': 'error',
+      '@typescript-eslint/no-unused-vars': 'off',
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+      '@next/next/no-img-element': 'warn',
     },
   },
-];
+);

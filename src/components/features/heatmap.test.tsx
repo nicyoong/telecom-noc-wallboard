@@ -64,7 +64,7 @@ describe('Heatmap', () => {
       const customData = MOCK_BANDWIDTH.map((m) => ({
         ...m,
         utilization,
-      }));
+      })) as any;
       rerender(<Heatmap data={customData} />);
       // Just verify rendering doesn't throw
       expect(screen.getByText(`${utilization}%`)).toBeInTheDocument();
@@ -86,10 +86,26 @@ describe('Heatmap', () => {
         average_utilization: 60,
         trend: 'up',
         last_updated: '2024-01-15T10:00:00Z',
-      },
+      } as any,
     ];
     
     render(<Heatmap data={customData} />);
+    expect(screen.getByText('eth0')).toBeInTheDocument();
+  });
+
+  it('should handle custom data with string region', () => {
+    const customDataWithStdString = [
+      {
+        interface: 'eth0',
+        region: 'northeast',
+        utilization: 75,
+        peak_utilization: 85,
+        average_utilization: 60,
+        trend: 'up',
+        last_updated: '2024-01-15T10:00:00Z',
+      } as any,
+    ];
+    render(<Heatmap data={customDataWithStdString} />);
     expect(screen.getByText('eth0')).toBeInTheDocument();
   });
 });

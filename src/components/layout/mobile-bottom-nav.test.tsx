@@ -18,8 +18,13 @@ describe('MobileBottomNav', () => {
     { id: 'profile', label: 'Profile' },
   ];
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function renderNav(props: any) {
+    return render(<MobileBottomNav {...props} />);
+  }
+
   it('should render all mobile tabs', () => {
-    render(<MobileBottomNav activeTab="health" onTabChange={() => {}} tabs={tabs} />);
+    renderNav({ activeTab: 'health', onTabChange: () => {}, tabs });
     
     expect(screen.getByText('Health')).toBeInTheDocument();
     expect(screen.getByText('Incidents')).toBeInTheDocument();
@@ -29,34 +34,34 @@ describe('MobileBottomNav', () => {
   });
 
   it('should highlight active tab', () => {
-    render(<MobileBottomNav activeTab="incidents" onTabChange={() => {}} tabs={tabs} />);
+    renderNav({ activeTab: 'incidents', onTabChange: () => {}, tabs });
     
     const incidentsTab = screen.getByText('Incidents');
     expect(incidentsTab).toHaveClass('text-brand-blue');
   });
 
   it('should show emergency escalation button', () => {
-    render(<MobileBottomNav activeTab="health" onTabChange={() => {}} tabs={tabs} />);
+    renderNav({ activeTab: 'health', onTabChange: () => {}, tabs });
     
     expect(screen.getByText('EMERGENCY ESCALATION')).toBeInTheDocument();
   });
 
   it('should call onTabChange when tab clicked', () => {
     const handleChange = jest.fn();
-    render(<MobileBottomNav activeTab="health" onTabChange={handleChange} tabs={tabs} />);
+    renderNav({ activeTab: 'health', onTabChange: handleChange, tabs });
     
     fireEvent.click(screen.getByText('Devices'));
     expect(handleChange).toHaveBeenCalledWith('devices');
   });
 
   it('should have ARIA attributes', () => {
-    render(<MobileBottomNav activeTab="health" onTabChange={() => {}} tabs={tabs} />);
+    renderNav({ activeTab: 'health', onTabChange: () => {}, tabs });
     
     expect(screen.getByLabelText('Mobile navigation')).toBeInTheDocument();
   });
 
   it('should not show count badges (mobile simplified)', () => {
-    render(<MobileBottomNav activeTab="health" onTabChange={() => {}} tabs={tabs} />);
+    renderNav({ activeTab: 'health', onTabChange: () => {}, tabs });
     
     // No count badges should be present in mobile nav
     expect(screen.queryByText(/\d/)).not.toBeInTheDocument();

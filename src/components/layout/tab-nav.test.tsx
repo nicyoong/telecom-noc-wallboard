@@ -16,8 +16,13 @@ describe('TabNav', () => {
     { id: 'incidents', label: 'Active Incidents', count: 5 },
   ];
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function renderNav(props: any) {
+    return render(<TabNav {...props} />);
+  }
+
   it('should render all tabs', () => {
-    render(<TabNav activeTab="topology" onTabChange={() => {}} tabs={tabs} />);
+    renderNav({ activeTab: 'topology', onTabChange: () => {}, tabs });
     
     expect(screen.getByText('Topology')).toBeInTheDocument();
     expect(screen.getByText('Device Health')).toBeInTheDocument();
@@ -25,21 +30,21 @@ describe('TabNav', () => {
   });
 
   it('should highlight active tab', () => {
-    render(<TabNav activeTab="devices" onTabChange={() => {}} tabs={tabs} />);
+    renderNav({ activeTab: 'devices', onTabChange: () => {}, tabs });
     
     const devicesTab = screen.getByText('Device Health');
     expect(devicesTab).toHaveClass('text-brand-blue');
   });
 
   it('should show incident count badge', () => {
-    render(<TabNav activeTab="topology" onTabChange={() => {}} tabs={tabs} />);
+    renderNav({ activeTab: 'topology', onTabChange: () => {}, tabs });
     
     expect(screen.getByText('5')).toBeInTheDocument();
   });
 
   it('should call onTabChange when tab clicked', () => {
     const handleChange = jest.fn();
-    render(<TabNav activeTab="topology" onTabChange={handleChange} tabs={tabs} />);
+    renderNav({ activeTab: 'topology', onTabChange: handleChange, tabs });
     
     fireEvent.click(screen.getByText('Active Incidents'));
     expect(handleChange).toHaveBeenCalledWith('incidents');
@@ -51,13 +56,13 @@ describe('TabNav', () => {
       { id: 'incidents', label: 'Active Incidents', count: 0 },
     ];
     
-    render(<TabNav activeTab="topology" onTabChange={() => {}} tabs={tabsWithoutCount} />);
+    renderNav({ activeTab: 'topology', onTabChange: () => {}, tabs: tabsWithoutCount });
     
     expect(screen.queryByText('0')).not.toBeInTheDocument();
   });
 
   it('should have proper ARIA attributes', () => {
-    render(<TabNav activeTab="topology" onTabChange={() => {}} tabs={tabs} />);
+    renderNav({ activeTab: 'topology', onTabChange: () => {}, tabs });
     
     expect(screen.getByRole('tablist')).toBeInTheDocument();
     expect(screen.getAllByRole('tab').length).toBe(3);

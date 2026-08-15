@@ -70,7 +70,7 @@ describe('Sidebar', () => {
     render(<Sidebar isOpen={true} onClose={handleClose} />);
     
     const closeButton = document.querySelector('button[aria-label="Close sidebar"]');
-    closeButton?.click();
+    (closeButton as HTMLButtonElement)?.click();
     
     expect(handleClose).toHaveBeenCalledTimes(1);
   });

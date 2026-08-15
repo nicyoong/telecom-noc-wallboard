@@ -14,6 +14,7 @@ interface TestDevice {
   hostname: string;
   ip_address: string;
   status: string;
+  [key: string]: unknown;
 }
 
 const MOCK_DEVICES: TestDevice[] = [

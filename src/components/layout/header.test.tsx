@@ -65,7 +65,7 @@ describe('Header', () => {
     render(<Header onMenuToggle={handleToggle} />);
     
     const menuButton = document.querySelector('button[aria-label="Toggle menu"]');
-    menuButton?.click();
+    (menuButton as HTMLButtonElement)?.click();
     
     expect(handleToggle).toHaveBeenCalledTimes(1);
   });
