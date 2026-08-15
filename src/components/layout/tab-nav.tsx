@@ -17,6 +17,11 @@ export function TabNav({ activeTab, onTabChange }: TabNavProps) {
     { id: 'incidents', label: 'Active Incidents', minRole: 'viewer' as const, count: incidentCount, critical: criticalCount > 0 },
     { id: 'shift', label: 'Shift Log', minRole: 'engineer' as const },
     { id: 'reports', label: 'Reports', minRole: 'noc_lead' as const },
+    { id: 'maintenance', label: 'Maintenance', minRole: 'engineer' as const },
+    { id: 'escalation', label: 'Escalation', minRole: 'noc_lead' as const },
+    { id: 'health', label: 'System Health', minRole: 'noc_lead' as const },
+    { id: 'settings', label: 'Settings', minRole: 'noc_lead' as const },
+    { id: 'wallboard', label: 'Wallboard', minRole: 'viewer' as const },
   ];
 
   const accessibleTabs = tabs;

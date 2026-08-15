@@ -77,6 +77,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-base text-white min-h-screen">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brand-blue focus:text-white focus:rounded"
+        >
+          Skip to main content
+        </a>
         <ToastProvider>
           <AuthProvider>{children}</AuthProvider>
         </ToastProvider>

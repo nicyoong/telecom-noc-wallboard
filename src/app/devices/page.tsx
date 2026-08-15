@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { MOCK_DEVICES, MOCK_INCIDENTS } from '@/data/mock';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
+import { useDebounce } from '@/hooks/use-debounce';
 import type { Device, DeviceStatus } from '@/types';
 
 type SortField = 'status' | 'uptime' | 'cpu' | 'memory' | 'last_check';
@@ -11,6 +12,7 @@ type SortDir = 'asc' | 'desc';
 
 export default function DevicesView() {
   const [search, setSearch] = useState('');
+  const debouncedSearch = useDebounce(search, 300);
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [regionFilter, setRegionFilter] = useState<string>('all');
@@ -23,7 +25,7 @@ export default function DevicesView() {
       if (statusFilter !== 'all' && d.status !== statusFilter) return false;
       if (typeFilter !== 'all' && d.device_type !== typeFilter) return false;
       if (regionFilter !== 'all' && d.region !== regionFilter) return false;
-      if (search && !d.hostname.toLowerCase().includes(search.toLowerCase()) && !d.ip_address.includes(search)) return false;
+      if (debouncedSearch && !d.hostname.toLowerCase().includes(debouncedSearch.toLowerCase()) && !d.ip_address.includes(debouncedSearch)) return false;
       return true;
     });
 
@@ -43,7 +45,7 @@ export default function DevicesView() {
     });
 
     return result;
-  }, [search, statusFilter, typeFilter, regionFilter, sortField, sortDir]);
+  }, [debouncedSearch, statusFilter, typeFilter, regionFilter, sortField, sortDir]);
 
   const statusCounts = React.useMemo(() => {
     const counts: Record<string, number> = {};

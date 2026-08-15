@@ -34,6 +34,11 @@ export function Header({ onMenuToggle }: HeaderProps) {
         </div>
       </div>
 
+      {/* Aria-live region for critical alerts */}
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
+        <span id="critical-alerts">No critical alerts</span>
+      </div>
+
       <div className="flex items-center gap-6">
         <div className="hidden md:flex items-center gap-2 text-body-sm">
           <span className={`px-2.5 py-1 rounded-full font-mono text-body-xs font-bold ${isDayShift ? 'bg-status-degraded/20 text-status-degraded' : 'bg-brand-cyan/20 text-brand-cyan'}`}>

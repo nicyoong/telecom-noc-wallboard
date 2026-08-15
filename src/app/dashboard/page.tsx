@@ -80,6 +80,23 @@ export default function DashboardPage() {
       return <MobileDashboard />;
     }
 
+    // For now, show a placeholder for pages that have their own layout
+    const pageRoutes = ['settings', 'profile', 'reports', 'maintenance', 'escalation', 'health', 'wallboard'];
+    if (pageRoutes.includes(activeTab)) {
+      return (
+        <div className="flex items-center justify-center h-96">
+          <div className="text-center">
+            <div className="text-6xl mb-4">🚧</div>
+            <h2 className="text-2xl font-bold text-white mb-2">{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h2>
+            <p className="text-slate-400">Navigate to this page directly or wait for full implementation.</p>
+            <a href={`/${activeTab}`} className="mt-4 inline-block px-6 py-3 bg-brand-blue text-white rounded-lg hover:bg-brand-blue/90 transition-colors">
+              Go to {activeTab}
+            </a>
+          </div>
+        </div>
+      );
+    }
+
     switch (activeTab) {
       case 'topology':
         return <TopologyView />;
