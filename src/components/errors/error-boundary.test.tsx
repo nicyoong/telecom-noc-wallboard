@@ -16,9 +16,9 @@ describe('ErrorBoundary', () => {
   it('renders fallback prop when an error is thrown', () => {
     const customFallback = <div data-testid="fallback">Custom Fallback</div>;
 
-    function Thrower() {
+    const Thrower = (): React.JSX.Element => {
       throw new Error('Intentional error');
-    }
+    };
 
     render(
       <ErrorBoundary fallback={customFallback}>
@@ -31,9 +31,9 @@ describe('ErrorBoundary', () => {
   });
 
   it('renders default error UI when child throws', () => {
-    function Thrower() {
+    const Thrower = (): React.JSX.Element => {
       throw new Error('Render error');
-    }
+    };
 
     render(
       <ErrorBoundary>
@@ -51,11 +51,12 @@ describe('ErrorBoundary', () => {
 
   it('renders error message in development mode', () => {
     const originalEnv = process.env.NODE_ENV;
-    process.env.NODE_ENV = 'development';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (process.env as any).NODE_ENV = 'development';
 
-    function Thrower() {
+    const Thrower = (): React.JSX.Element => {
       throw new Error('Dev error message');
-    }
+    };
 
     render(
       <ErrorBoundary>
@@ -65,16 +66,18 @@ describe('ErrorBoundary', () => {
 
     expect(screen.getByText('Dev error message')).toBeInTheDocument();
 
-    process.env.NODE_ENV = originalEnv;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (process.env as any).NODE_ENV = originalEnv;
   });
 
   it('does not render error message in production mode', () => {
     const originalEnv = process.env.NODE_ENV;
-    process.env.NODE_ENV = 'production';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (process.env as any).NODE_ENV = 'production';
 
-    function Thrower() {
+    const Thrower = (): React.JSX.Element => {
       throw new Error('Should not be visible');
-    }
+    };
 
     render(
       <ErrorBoundary>
@@ -84,13 +87,14 @@ describe('ErrorBoundary', () => {
 
     expect(screen.queryByText('Should not be visible')).not.toBeInTheDocument();
 
-    process.env.NODE_ENV = originalEnv;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (process.env as any).NODE_ENV = originalEnv;
   });
 
   it('has Back to Dashboard link pointing to /dashboard', () => {
-    function Thrower() {
+    const Thrower = (): React.JSX.Element => {
       throw new Error('Test');
-    }
+    };
 
     render(
       <ErrorBoundary>

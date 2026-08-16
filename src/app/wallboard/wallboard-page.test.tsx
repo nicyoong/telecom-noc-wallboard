@@ -96,8 +96,12 @@ describe('WallboardPage', () => {
   });
 
   it('handles keyboard shortcut for escape (exit)', () => {
-    const locationHrefSpy = jest.spyOn(window, 'location', 'value');
-    locationHrefSpy.mockReturnValue({ href: '' } as any);
+    const locationHrefSpy = jest.spyOn(window.location, 'href', 'get');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Object.defineProperty(window.location, 'href', {
+      configurable: true,
+      value: 'about:blank',
+    });
 
     render(<WallboardPage />);
     fireEvent.keyDown(document, { key: 'Escape' });
