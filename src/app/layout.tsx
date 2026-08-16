@@ -17,12 +17,13 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'NetWatch NOC - Network Operations Center',
+  title: 'NetWatch NOC - Network Operations Center (Portfolio Demo)',
   description:
-    'NetWatch NOC is a 24/7 network operations center monitoring platform for telecom infrastructure.',
+    'NetWatch NOC is a 24/7 network operations center monitoring platform for telecom infrastructure. Portfolio demo - no authentication required.',
   keywords: [
     'NOC', 'network operations', 'telecom monitoring', 'network topology',
     'incident management', 'bandwidth monitoring', 'network health',
+    'portfolio',
   ],
   authors: [{ name: 'NetWatch NOC Team' }],
   creator: 'NetWatch NOC',
@@ -32,14 +33,14 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://noc.netwatch.example.com',
     siteName: 'NetWatch NOC',
-    title: 'NetWatch NOC - Network Operations Center Dashboard',
-    description: '24/7 network monitoring dashboard for telecom infrastructure.',
+    title: 'NetWatch NOC - Network Operations Center Dashboard (Portfolio)',
+    description: '24/7 network monitoring dashboard for telecom infrastructure. Portfolio demo.',
     images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'NetWatch NOC Dashboard' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NetWatch NOC - Network Operations Center',
-    description: '24/7 network monitoring dashboard for telecom infrastructure.',
+    title: 'NetWatch NOC - Network Operations Center (Portfolio)',
+    description: '24/7 network monitoring dashboard for telecom infrastructure. Portfolio demo.',
     images: ['/og-image.png'],
   },
   alternates: { canonical: 'https://noc.netwatch.example.com' },

@@ -11,17 +11,31 @@ const MOCK_USERS: Record<string, Omit<User, 'id'>> = {
 
 const AuthContext = React.createContext<AuthContextType | undefined>(undefined);
 
+// Portfolio mode: automatically sign in as guest viewer
+const AUTO_LOGIN_EMAIL = 'guest@netwatchnoc.com';
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Portfolio mode: auto-sign-in as guest
     const stored = typeof localStorage !== 'undefined' ? localStorage.getItem('noc_auth_user') : null;
     if (stored) {
       try {
         setUser(JSON.parse(stored));
       } catch {
         // ignore
+      }
+    } else if (MOCK_USERS[AUTO_LOGIN_EMAIL]) {
+      // Auto-login as guest for portfolio viewing
+      const guestUser: User = {
+        id: 'USR-GUEST',
+        ...MOCK_USERS[AUTO_LOGIN_EMAIL],
+      };
+      setUser(guestUser);
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('noc_auth_user', JSON.stringify(guestUser));
       }
     }
     setIsLoading(false);
